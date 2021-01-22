@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>myapp</title>
+</head>
+<body>
+    <h2>Simplest Crud Example</h2>
+    <p>This shows a list of names and lets you Create, Update and Delete them.</p>
+    {% if names_from_context %}
+        <ul>
+            {% for name in names_from_context %}
+                <li>{{ name.name_value }}  <button>Delete</button> <button>Update</button></li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <h3>Please go to the admin and add a Name under 'MYAPP'</h3>
+    {% endif %}
+    <h3>Add a Name</h3>
+    <button>Create</button>
+<form action="books" method="post" class="form-example">
+  <div class="form-example">
+    <label for="name">Enter your name: </label>
+    <input type="text" name="name" id="name" required>
+  </div>
+  <div class="form-example">
+    <label for="email">Enter your email: </label>
+    <input type="email" name="email" id="email" required>
+  </div>
+  <div class="form-example">
+    <input type="submit" value="Subscribe!" onClick='href="http://127.0.0.1:8000/book/"'>
+  </div>
+</form>
+</body>
+</html>

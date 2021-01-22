@@ -1,0 +1,48 @@
+{% extends 'book/base.html' %}
+
+{% block title %}
+{{ title }}
+{% endblock %}
+
+
+{% block content %}
+
+<h1>List of all Books</h1>
+<table class="table">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Name of book</th>
+      <th scope="col">Author</th>
+      <th scope="col">Description</th>
+        <th <div><a type="button" class="btn btn-success btn-sm" href="/book/0">+ Add New Book </a></div> </th>
+    <th></th>
+    </tr>
+    </thead>
+
+  <tbody>
+      {% if books %}
+        {% for el in books %}
+                  <tr>
+                    <th scope="row">{{el.id}}</th>
+                    <td>{{el.name}}</td>
+                    <td>{% for el1 in el.authors.all %}
+                           {{ el1.name }} {{ el1.surname }}
+                        {% endfor %}</td>
+                    <td>{{el.description}}</td>
+                      <td><a type="button" class="btn btn-info btn-sm" href="/book/{{ el.id }}/view">View</a>
+                      <a type="button" class="btn btn-warning btn-sm" href="/book/{{ el.id }}">Update</a>
+                      <a type="button" class="btn btn-danger btn-sm" href="/book/{{ el.id }}/delete">Delete</a></td>
+
+                  </tr>
+             {% endfor %}
+    {% else %}
+        <p>Sorry, there is no any book in our list...</p>
+    {% endif %}
+
+
+  </tbody>
+</table>
+
+
+{% endblock %}

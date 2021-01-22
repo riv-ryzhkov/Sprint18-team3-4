@@ -1,0 +1,50 @@
+{% extends 'book/base.html' %}
+
+{% block title %}
+{{ title }}
+{% endblock %}
+
+
+{% block content %}
+
+    <h2>List of all Orders
+    </h2>
+
+<table class="table">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">User</th>
+      <th scope="col">Book</th>
+      <th scope="col">created at</th>
+      <th scope="col">end at</th>
+      <th scope="col">plated at</th>
+        <th <div><a type="button" class="btn btn-success btn-sm" href="/order/0">+ Add New Order </a></div> </th>
+    <th></th>
+    </tr>
+  </thead>
+  <tbody>
+      {% if orders %}
+        {% for el in orders %}
+                  <tr>
+                    <th scope="row">{{el.id}}</th>
+                    <td>{{el.user.first_name}}</td>
+                    <td>{{el.book.name}}</td>
+                    <td>{{el.created_at}}</td>
+                    <td>{{el.end_at}}</td>
+                    <td>{{el.plated_end_at}}</td>
+                    <td><a type="button" class="btn btn-info btn-sm" href="/order/{{ el.id }}/view">View</a>
+                    <a type="button" class="btn btn-warning btn-sm" href="/order/{{ el.id }}">Update</a>
+                    <a type="button" class="btn btn-danger btn-sm" href="/order/{{ el.id }}/delete">Delete</a></td>
+                  </tr>
+             {% endfor %}
+    {% else %}
+        <p>Sorry, there is no any order in our list...</p>
+    {% endif %}
+
+
+  </tbody>
+</table>
+
+
+{% endblock %}

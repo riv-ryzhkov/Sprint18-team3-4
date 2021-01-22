@@ -1,0 +1,20 @@
+{% extends 'book/base.html' %}
+
+{% block title %}
+Authors
+{% endblock %}
+
+
+{% block content %}
+
+    <h2>Author</h2>
+    <form action="" method="post" autocomplete="off">
+        {% csrf_token %}
+        <div> <b>Author's name  : </b>{{form.name}}</div><br>
+        <div> <b>Author's surname  : </b>{{form.surname}}</div><br>
+        <div> <b>Author's patronymic : </b></div>
+        <div> {{form.patronymic}}</div><br>
+        <input type="submit" value="Submit" class="btn btn-success btn-sm">
+    </form>
+
+{% endblock %}

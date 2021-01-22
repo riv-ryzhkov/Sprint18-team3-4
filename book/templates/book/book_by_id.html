@@ -1,0 +1,22 @@
+{% extends 'book/base.html' %}
+
+{% block title %}
+{{ title }}
+{% endblock %}
+
+
+{% block content %}
+
+    <h1>{{ title }}</h1>
+    <h3>Name of book :  {{ book_by_id.name }}</h3>
+    <p><b>Author    : </b>
+        {% for el in book_by_id.authors.all %}
+            {{ el.name }} {{ el.surname }}
+        {% endfor %}
+        </p>
+
+<p><b>Description       : </b> {{book_by_id.description}}</p>
+    <a type="button" class="btn btn-success" href="/book/">Back to the list of Books</a>
+
+
+{% endblock %}
