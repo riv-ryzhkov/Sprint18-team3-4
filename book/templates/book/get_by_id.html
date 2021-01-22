@@ -1,0 +1,42 @@
+{% extends 'book/base.html' %}
+
+{% block title %}
+{{ title }}
+{% endblock %}
+
+
+{% block content %}
+
+    <h1>List of all Books</h1>
+
+
+
+
+<table class="table">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Name</th>
+      <th scope="col">Author</th>
+      <th scope="col">Description</th>
+    </tr>
+  </thead>
+  <tbody>
+      {% if books %}
+        {% for el in books %}
+                  <tr>
+                    <th scope="row">{{el.id}}</th>
+                    <td>{{el.name}}</td>
+                    <td>{{el.authors}}</td>
+                    <td>{{el.description}}</td>
+                  </tr>
+             {% endfor %}
+    {% else %}
+        <p>Sorry, there is no any book in our list...</p>
+    {% endif %}
+
+  </tbody>
+</table>
+
+
+{% endblock %}

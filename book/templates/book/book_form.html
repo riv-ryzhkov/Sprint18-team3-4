@@ -1,0 +1,21 @@
+{% extends 'book/base.html' %}
+
+{% block title %}
+Add New Book
+{% endblock %}
+
+
+{% block content %}
+
+    <h2>Book</h2>
+    <form action="" method="post" autocomplete="off">
+        {% csrf_token %}
+        <div> <b>Name of the book  : </b>{{form.name}}</div><br>
+        <div> <b>Select author     : </b>{{form.authors}}</div><br>
+        <div> <b>Short description : </b></div>
+        <div> {{form.description}}</div><br>
+        <div> <b>Count of the book : </b>{{form.count}}</div><br>
+        <input type="submit" value="Submit" class="btn btn-success btn-sm">
+    </form>
+
+{% endblock %}

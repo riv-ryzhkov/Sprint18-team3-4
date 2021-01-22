@@ -1,0 +1,37 @@
+{% extends 'book/base.html' %}
+
+{% block title %}
+{{ title }}
+{% endblock %}
+
+
+{% block content %}
+
+    <h2>{{ title }}</h2>
+    <h1></h1>
+
+<table class="table">
+  <thead class="thead-dark">
+  </thead>
+  <tbody>
+                  <tr>
+                      <td><b>Author's name       :</b></td>
+                    <td>{{ author_by_id.name }}</td>
+                  </tr>
+                  <tr>
+                      <td><b>Author's patronymic :</b></td>
+                    <td>{{ author_by_id.patronymic }}</td>
+                  </tr>
+                    <tr>
+                        <td><b>Author's surname       :</b></td>
+                    <td>{{ author_by_id.surname }}</td>
+                  </tr>
+  </tbody>
+</table>
+
+    <a type="button" class="btn btn-success" href="/author/">Back to the list of Authors</a>
+
+
+
+
+{% endblock %}
