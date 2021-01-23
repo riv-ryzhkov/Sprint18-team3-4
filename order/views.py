@@ -1,7 +1,33 @@
 from django.shortcuts import render, redirect
-from .models import Order
 from .forms import OrderForm
-from django.core.exceptions import ObjectDoesNotExist
+from .models import Order
+from rest_framework import viewsets, generics, permissions
+from .serializers import OrderSerializer, OrderDetailSerializer, OrderListSerializer
+from rest_framework.permissions import IsAuthenticated, IsAdminUser
+from rest_framework.authentication import TokenAuthentication
+
+
+
+class OrderCreateView(generics.CreateAPIView):
+    serializer_class = OrderDetailSerializer
+
+class OrderListView(generics.ListAPIView):
+    serializer_class = OrderListSerializer
+    queryset = Order.objects.all()
+    permission_classes = (IsAdminUser, IsAuthenticated, )
+
+class OrderDetailView(generics.RetrieveUpdateDestroyAPIView):
+    serializer_class = OrderDetailSerializer
+    queryset = Order.objects.all()
+
+
+class OrderViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows users to be viewed or edited.
+    """
+    queryset = Order.objects.all().order_by('id')
+    serializer_class = OrderSerializer
+    permission_classes = [permissions.IsAuthenticated]
 
 
 def all_orders(request):
@@ -37,16 +63,7 @@ def order_form(request, id=0):
 
 
 def order_update(request):
-    # def book_update(request, book_id=0, name, description, author, count):
-    # if name:
-    #     Book.objects.get(id=book_id).name = name
-    # if description:
-    #     Book.objects.get(id=book_id).description = description
-    # if author:
-    #     Book.objects.get(id=book_id).author = author
-    # if count:
-    #     Book.objects.get(id=book_id).count = count
-    # Book.save()
+
     orders = list(Order.objects.all())
     return render(request, 'order/all_orders.html', {'title': "All orders", "orders": orders})
 

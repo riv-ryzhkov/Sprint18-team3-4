@@ -19,6 +19,13 @@ from django.urls import path, include
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('homepage.urls')),
+    path('api/v1/book/', include('book.urls')),
+    path('api/v1/author/', include('author.urls')),
+    path('api/v1/base-auth/', include('rest_framework.urls')),
+    path('api/v1/auth/', include('djoser.urls')),
+    path('api/v1/auth_token/', include('djoser.urls.authtoken')),
+    path('api/v1/user/', include('authentication.urls')),
+    path('api/v1/order/', include('order.urls')),
     path('book/', include('book.urls')),
     path('author/', include('author.urls')),
     path('user/', include('authentication.urls')),

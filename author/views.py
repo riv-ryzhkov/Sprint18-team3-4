@@ -1,7 +1,34 @@
 from django.shortcuts import render, redirect
-from .models import Author
 from .forms import AuthorForm
-from django.core.exceptions import ObjectDoesNotExist
+
+from .models import Author
+from rest_framework import viewsets, generics, permissions
+from .serializers import AuthorSerializer, AuthorDetailSerializer, AuthorListSerializer
+from rest_framework.permissions import IsAuthenticated, IsAdminUser
+from rest_framework.authentication import TokenAuthentication
+
+
+
+class AuthorCreateView(generics.CreateAPIView):
+    serializer_class = AuthorDetailSerializer
+
+class AuthorListView(generics.ListAPIView):
+    serializer_class = AuthorListSerializer
+    queryset = Author.objects.all()
+    permission_classes = (IsAdminUser, IsAuthenticated, )
+
+class AuthorDetailView(generics.RetrieveUpdateDestroyAPIView):
+    serializer_class = AuthorDetailSerializer
+    queryset = Author.objects.all()
+
+
+class AuthorViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows users to be viewed or edited.
+    """
+    queryset = Author.objects.all().order_by('id')
+    serializer_class = AuthorSerializer
+    permission_classes = [permissions.IsAuthenticated]
 
 
 def all_authors(request):

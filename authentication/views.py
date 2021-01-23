@@ -1,7 +1,33 @@
+from .forms import UserForm
 from django.shortcuts import render, redirect
 from .models import CustomUser
-from .forms import UserForm
-from django.core.exceptions import ObjectDoesNotExist
+from rest_framework import viewsets, generics, permissions
+from .serializers import CustomUserSerializer, CustomUserDetailSerializer, CustomUserListSerializer
+from rest_framework.permissions import IsAuthenticated, IsAdminUser
+from rest_framework.authentication import TokenAuthentication
+
+
+
+class CustomUserCreateView(generics.CreateAPIView):
+    serializer_class = CustomUserDetailSerializer
+
+class CustomUserListView(generics.ListAPIView):
+    serializer_class = CustomUserListSerializer
+    queryset = CustomUser.objects.all()
+    permission_classes = (IsAdminUser, IsAuthenticated, )
+
+class CustomUserDetailView(generics.RetrieveUpdateDestroyAPIView):
+    serializer_class = CustomUserDetailSerializer
+    queryset = CustomUser.objects.all()
+
+
+class CustomUserViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows users to be viewed or edited.
+    """
+    queryset = CustomUser.objects.all().order_by('id')
+    serializer_class = CustomUserSerializer
+    permission_classes = [permissions.IsAuthenticated]
 
 
 def all_users(request):

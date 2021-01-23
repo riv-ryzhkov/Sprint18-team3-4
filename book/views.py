@@ -1,8 +1,34 @@
 from django.shortcuts import render, redirect
 from .models import Book, Author
-from django.core.exceptions import ObjectDoesNotExist
 from django.contrib import admin
 from .forms import BookForm
+from rest_framework import viewsets, generics, permissions
+from .serializers import BookSerializer, BookDetailSerializer, BookListSerializer
+from rest_framework.permissions import IsAuthenticated, IsAdminUser
+from rest_framework.authentication import TokenAuthentication
+
+
+
+class BookCreateView(generics.CreateAPIView):
+    serializer_class = BookDetailSerializer
+
+class BookListView(generics.ListAPIView):
+    serializer_class = BookListSerializer
+    queryset = Book.objects.all()
+    permission_classes = (IsAdminUser, IsAuthenticated, )
+
+class BookDetailView(generics.RetrieveUpdateDestroyAPIView):
+    serializer_class = BookDetailSerializer
+    queryset = Book.objects.all()
+
+
+class BookViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows users to be viewed or edited.
+    """
+    queryset = Book.objects.all().order_by('id')
+    serializer_class = BookSerializer
+    permission_classes = [permissions.IsAuthenticated]
 
 
 def all_books(request):
